@@ -1,6 +1,8 @@
 package app;
 
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Solution {
 
@@ -22,18 +24,23 @@ public class Solution {
     }
 
     private static int[] findConverterNumbers(int[] ints, int elementsNumber, List<Integer> trResult) {
-        List<Integer> convertersNumber = new ArrayList<>();
+        int[] convertersNumber = new int[ints.length];
+        int index = 0;
         for (int number : ints) {
             if (number == elementsNumber) {
-                convertersNumber.add(-1);
+                //add root
+                convertersNumber[index] = -1;
+                index++;
                 continue;
             }
             Integer integer = trResult.get(number);
             int parent = (int) Math.floor(integer - 1) / 2;
             int parentResult = trResult.indexOf(parent);
-            convertersNumber.add(parentResult);
+            convertersNumber[index] = parentResult;
+            index++;
         }
-        return convertersNumber.stream().mapToInt(Integer::intValue).toArray();
+
+        return convertersNumber;
     }
 
     private static class Tree {
